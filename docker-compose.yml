@@ -1,0 +1,21 @@
+version: "3"
+services:
+  jenkins:
+    image: jenkins/jenkins:2.204.2
+    ports:
+      - "8080:8080"    
+    volumes:
+      - jenkins_home:/var/jenkins_home
+  nginx:
+    image: nginx:1.17.10-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/etc/nginx        
+    depends_on:
+      - jenkins
+
+volumes:
+  jenkins_home:
+    driver: local
